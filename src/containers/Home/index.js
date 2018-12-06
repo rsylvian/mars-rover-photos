@@ -87,6 +87,16 @@ class Home extends React.Component {
           onChange={this.onDateChange.bind(this)}
         />
 
+        {/* If we have an error while retrieving data */}
+        {this.props.photosError ? (
+          <div className="message">
+            <h2>Something Unexpected Happened!</h2>
+            <p>Please try again.</p>
+          </div>
+        ) : (
+          <div />
+        )}
+
         {/* Display the photos or a loading/no photos message */}
         {photos ? (
           photos.length ? (
@@ -112,16 +122,6 @@ class Home extends React.Component {
           <div className="message">
             <h2>Loading...</h2>
           </div>
-        )}
-
-        {/* If we have an error while retrieving data */}
-        {this.props.photosError ? (
-          <div className="message">
-            <h2>Something Unexpected Happened!</h2>
-            <p>Please try again.</p>
-          </div>
-        ) : (
-          <div />
         )}
 
         {/* Modal for photo */}
