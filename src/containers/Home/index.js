@@ -127,7 +127,7 @@ class Home extends React.Component {
         {/* Modal for photo */}
         {this.state.modalPhoto ? (
           <Modal
-            title={'Detail - #' + this.state.modalPhoto.id}
+            title={'Photo #' + this.state.modalPhoto.id}
             width={650}
             footer={null}
             visible={this.state.modalShow}

@@ -5,3 +5,12 @@ body {
   min-height: 100vh;
   background-color: #eeeeee;
 }
+
+/* design changes for ant-design modals */
+.ant-modal-content .ant-modal-close-x .anticon {
+  vertical-align: 0.125em;
+}
+
+.ant-modal-content .ant-modal-body {
+  padding: 0px;
+}
