@@ -1,3 +1,6 @@
+## Live Demo
+https://mars-rover-photos.herokuapp.com/
+
 ## Installation
 
 ```bash
@@ -10,4 +13,10 @@ yarn
 
 ```bash
 yarn start
+```
+
+## Run tests
+
+```bash
+yarn test
 ```
