@@ -23,7 +23,7 @@ class App extends React.Component {
             return (
               <Menu.Item key={type}>
                 <Link to={'/' + type}>
-                  <Icon type="camera" />
+                  <Icon type="camera" style={{ verticalAlign: '0em' }} />
                   {type}
                 </Link>
               </Menu.Item>
