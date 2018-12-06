@@ -27,7 +27,12 @@ class RoverPhoto extends Component {
             this.handleClick();
           }}
           hoverable
-          cover={<img alt="example" src={this.props.photo.img_src} />}
+          cover={
+            <img
+              alt={'photo #' + this.props.photo.id}
+              src={this.props.photo.img_src}
+            />
+          }
         >
           <Card.Meta
             title={
