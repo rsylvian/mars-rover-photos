@@ -3,10 +3,23 @@ import styled from 'styled-components';
 const StyleWrapper = styled.div`
   width: 100%;
 
-  .ant-calendar-picker {
-    position: absolute;
-    top: 7px;
-    right: 7px;
+  @media (max-width: 991px) {
+    .ant-calendar-picker {
+      width: 100%;
+
+      input {
+        border-radius: 0px;
+        border-top: 0px;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .ant-calendar-picker {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+    }
   }
 
   .anticon {
