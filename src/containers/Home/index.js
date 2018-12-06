@@ -8,7 +8,6 @@ import StyleWrapper from './style';
 
 import photosActions from '../../redux/photos/actions';
 
-import { RoversType } from '../../services/MarsPhotosAPI/';
 import { RoverPhoto } from '../../components/RoverPhoto';
 
 class Home extends React.Component {
@@ -21,16 +20,11 @@ class Home extends React.Component {
   runQuery() {
     const rover = this.state.roverType;
 
-    //check that the roverType is a type supported by NASA API
-    if (Object.values(RoversType).indexOf(rover) >= 0) {
-      // format date to NASA API expectation
-      const date = this.state.selectedDate.format('YYYY-MM-DD');
+    // format date to NASA API expectation
+    const date = this.state.selectedDate.format('YYYY-MM-DD');
 
-      // run async API query
-      this.props.getPhotosByRover(rover, date);
-    } else {
-      console.log('nope!');
-    }
+    // run async NASA API query
+    this.props.getPhotosByRover(rover, date);
   }
 
   componentDidMount() {
@@ -38,6 +32,7 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // check if the type of rover changed so we can run a new query
     if (nextProps && nextProps.match.params.rover !== this.state.roverType) {
       this.setState(
         {
@@ -80,6 +75,7 @@ class Home extends React.Component {
 
     return (
       <StyleWrapper>
+        {/* Mount date picker to be used for filtering data */}
         <DatePicker
           format="MM/DD/YYYY"
           placeholder="Select Date"
@@ -91,19 +87,39 @@ class Home extends React.Component {
           onChange={this.onDateChange.bind(this)}
         />
 
-        {photos && photos.length ? (
-          <Row>
-            {photos.map(photo => {
-              return (
-                <Col xs={24} md={6} className="ant-col" key={photo.id}>
-                  <RoverPhoto
-                    photo={photo}
-                    onClick={this.requestModalOpen.bind(this)}
-                  />
-                </Col>
-              );
-            })}
-          </Row>
+        {/* Display the photos or a loading/no photos message */}
+        {photos ? (
+          photos.length ? (
+            <Row>
+              {photos.map(photo => {
+                return (
+                  <Col xs={24} md={6} className="ant-col" key={photo.id}>
+                    <RoverPhoto
+                      photo={photo}
+                      onClick={this.requestModalOpen.bind(this)}
+                    />
+                  </Col>
+                );
+              })}
+            </Row>
+          ) : (
+            <div className="message">
+              <h2>No photos for that day!</h2>
+              <p>Try another day?</p>
+            </div>
+          )
+        ) : (
+          <div className="message">
+            <h2>Loading...</h2>
+          </div>
+        )}
+
+        {/* If we have an error while retrieving data */}
+        {this.props.photosError ? (
+          <div className="message">
+            <h2>Something Unexpected Happened!</h2>
+            <p>Please try again.</p>
+          </div>
         ) : (
           <div />
         )}
@@ -133,14 +149,14 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({ photos }) => ({
-  photos: photos.list
+  photos: photos.list,
+  photosError: photos.err
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getPhotosByRover: photosActions.getPhotosByRover
-      //changePage: () => push('/about-us')
     },
     dispatch
   );

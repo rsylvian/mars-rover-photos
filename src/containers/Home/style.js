@@ -20,6 +20,22 @@ const StyleWrapper = styled.div`
     padding-top: 20px;
     padding-bottom: 20px;
   }
+
+  .message {
+    text-align: center;
+    margin-top: 43vh;
+    color: #c7c7c7;
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 0px;
+      color: #c7c7c7;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
 `;
 
 export default StyleWrapper;
