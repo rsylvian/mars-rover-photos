@@ -1,8 +1,8 @@
 import { MarsPhotosAPI } from '../../services/MarsPhotosAPI/';
 
 const photosActions = {
-  GET_ONE_PHOTO_SUCCESS: 'GET_ONE_PHOTO_SUCCESS',
   GET_PHOTOS_SUCCESS: 'GET_PHOTOS_SUCCESS',
+  GET_PHOTOS_FAIL: 'GET_PHOTOS_FAIL',
 
   getPhotosByRover: (rover, earthDate) => {
     return dispatch => {
@@ -18,8 +18,10 @@ const photosActions = {
           }
         })
         .catch(err => {
-          // TODO
-          console.log(err);
+          dispatch({
+            type: photosActions.GET_PHOTOS_FAIL,
+            err: err
+          });
         });
     };
   }
