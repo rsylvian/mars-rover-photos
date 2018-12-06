@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon } from 'antd';
+import moment from 'moment';
 
 import StyleWrapper from './style';
 
@@ -11,6 +12,13 @@ class RoverPhoto extends Component {
       this.props.onClick(this.props.photo);
     }
   }
+
+  dateFormat() {
+    return moment(this.props.photo.earth_date, 'YYYY-MM-DD').format(
+      'MMM DD, YYYY'
+    );
+  }
+
   render() {
     return (
       <StyleWrapper>
@@ -25,10 +33,12 @@ class RoverPhoto extends Component {
             title={
               <span>
                 <Icon type="camera" />
-                {this.props.photo.camera.name}
+                {this.props.photo.camera && this.props.photo.camera.full_name
+                  ? this.props.photo.camera.full_name
+                  : this.props.photo.camera.name}
               </span>
             }
-            description={'Taken on ' + this.props.photo.earth_date}
+            description={'Taken on ' + this.dateFormat()}
           />
         </Card>
       </StyleWrapper>
